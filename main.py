@@ -174,6 +174,13 @@ def main():
           tank2.update()
           balas = [b for b in balas if b.update()]
           
+          if tank1.checar_colisao(balas):
+              display_winner("vermelho")
+              running = False
+          if tank2.checar_colisao(balas):
+              display_winner("azul")
+              running = False
+          
           tank1.draw()
           tank2.draw()
           for bala in balas:
