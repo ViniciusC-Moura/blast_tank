@@ -101,6 +101,12 @@ coracao_red = pygame.transform.scale(pygame.image.load("coracao_red.png"), (52, 
 def main():
     jogando = False
 
+    vidas_blue_lista = [(0, 598), (52, 598), (104, 598)]
+    vidas_red_lista = [(828, 0), (776, 0), (724, 0)]
+
+    balas_blue_lista = [(170, 586), (192, 586), (214, 586)]
+    balas_red_lista = [(699, 0), (677, 0), (655, 0)]
+
     running = True
     balas = []
     tank1 = Tanque(100, 550, (66, 135, 245), {"move": pygame.K_w, "shoot": pygame.K_e}, "tank_azul.png")
@@ -145,7 +151,15 @@ def main():
 
         else:
           screen.blit(pygame.image.load("fundo_game.jpg"), (0,0))
+          for i in range(tank1.vidas):
+            screen.blit(coracao_blue, vidas_blue_lista[i])
+          for i in range(tank2.vidas):
+            screen.blit(coracao_red, vidas_red_lista[i])
 
+          for i in range(tank1.balas):
+            screen.blit(muni_blue, balas_blue_lista[i])
+          for i in range(tank2.balas):
+            screen.blit(muni_red, balas_red_lista[i])
 
           tank1.update()
           tank2.update()
