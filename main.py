@@ -102,6 +102,9 @@ def main():
     jogando = False
 
     running = True
+    balas = []
+    tank1 = Tanque(100, 550, (66, 135, 245), {"move": pygame.K_w, "shoot": pygame.K_e}, "tank_azul.png")
+    tank2 = Tanque(780, 100, (214, 24, 65), {"move": pygame.K_DOWN, "shoot": pygame.K_RIGHT}, "tank_vermelho.png")
     
     while running:
         
@@ -111,7 +114,23 @@ def main():
             elif event.type == pygame.MOUSEBUTTONUP and not jogando:
               if botao_rect.collidepoint(pygame.mouse.get_pos()):
                 jogando = True
-
+            elif event.type == pygame.KEYDOWN:
+                if event.key == tank1.teclas["move"]:
+                    tank1.movendo = True
+                elif event.key == tank2.teclas["move"]:
+                    tank2.movendo = True
+                elif event.key == tank1.teclas["shoot"]:
+                    tank1.atirar(balas)
+                elif event.key == tank2.teclas["shoot"]:
+                    tank2.atirar(balas)
+            elif event.type == pygame.KEYUP:
+                if event.key == tank1.teclas["move"]:
+                    tank1.movendo = False
+                    tank1.sentido_rotacao = not tank1.sentido_rotacao
+                elif event.key == tank2.teclas["move"]:
+                    tank2.movendo = False
+                    tank2.sentido_rotacao = not tank2.sentido_rotacao
+        
         if not jogando:
           screen.blit(pygame.image.load("fundo_inicio.jpg"), (0,0))
 
@@ -127,6 +146,16 @@ def main():
         else:
           screen.blit(pygame.image.load("fundo_game.jpg"), (0,0))
 
+
+          tank1.update()
+          tank2.update()
+          balas = [b for b in balas if b.update()]
+          
+          tank1.draw()
+          tank2.draw()
+          for bala in balas:
+              bala.draw()
+          
         pygame.display.flip()
         clock.tick(60)
     
