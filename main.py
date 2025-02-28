@@ -89,6 +89,15 @@ class Tanque:
                     return True
         return False
 
+def display_winner(cor_vencedor):
+    screen.fill((255, 255, 255))
+    font = pygame.font.Font(None, 74)
+    text = font.render(f"Tanque {cor_vencedor} ganhou!", True, (0, 0, 0))
+    text_rect = text.get_rect(center=(880 // 2, 650 // 2))
+    screen.blit(text, text_rect)
+    pygame.display.flip()
+    pygame.time.delay(3000)
+
 #==================# IMAGENS #===========================#
 muni_blue = pygame.image.load("muni_blue.png")
 muni_red = pygame.image.load("muni_red.png")
